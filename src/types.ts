@@ -14,9 +14,13 @@ export type MessageType = {
   http: MessageHttpType;
 };
 
-export type RefactoredDataType = {
+export type RefactoredRowType = {
   date: Date;
   message: MessageType;
+};
+export type RefactoredDataType = {
+  singleDates: Array<string>;
+  data: RefactoredRowType[];
 };
 export type ParsedDataType = {
   date: string;
