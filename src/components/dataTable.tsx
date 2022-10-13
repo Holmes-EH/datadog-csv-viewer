@@ -29,6 +29,7 @@ const DataTable: FC<RefactoredDataType> = ({
   };
   return (
     <>
+      <h2 className="text-center">Choose one or more dates</h2>
       <div className="grid grid-flow-col divide-x-4 align-middle justify-center mb-4">
         {singleDates.map((date, index) => {
           return (
