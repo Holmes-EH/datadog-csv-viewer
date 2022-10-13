@@ -1,24 +1,31 @@
 import { FC, useState } from "react";
 import { RefactoredDataType } from "../types";
 import DataRow from "./DataRow";
+import Loader from "./Loader";
 
 const DataTable: FC<RefactoredDataType> = ({
   singleDates,
   data,
 }): JSX.Element => {
   const [filteredDates, setFilteredDates] = useState<Date[]>([]);
+  const [loading, setLoading] = useState<Boolean>(false);
   const formatDate = (date: Date) => {
     return new Intl.DateTimeFormat("fr-FR").format(date);
   };
   const handleCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setLoading(true);
     if (event.target.checked) {
       setFilteredDates([...filteredDates, new Date(event.target.value)]);
+      setTimeout(() => {
+        setLoading(false);
+      }, 2000);
       return;
     }
     const newFilteredDateList = filteredDates.filter(
       (date: Date) => date.getDate() !== new Date(event.target.value).getDate()
     );
     setFilteredDates(newFilteredDateList);
+    setLoading(false);
   };
   return (
     <>
@@ -44,7 +51,8 @@ const DataTable: FC<RefactoredDataType> = ({
           );
         })}
       </div>
-      {filteredDates.length > 0 && (
+      {loading && <Loader />}
+      {!loading && filteredDates.length > 0 && (
         <table className="table-fixed w-full border-collapse">
           <thead>
             <tr>
@@ -53,9 +61,10 @@ const DataTable: FC<RefactoredDataType> = ({
             </tr>
           </thead>
 
-          {filteredDates.map((date) => {
+          {filteredDates.map((date, index) => {
             return (
               <DataRow
+                key={`filteredData-${index}`}
                 filteredData={data.filter(
                   (row) => row.date.getDate() === date.getDate()
                 )}
