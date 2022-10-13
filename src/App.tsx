@@ -13,7 +13,7 @@ function App() {
   const [csvData, setCsvData] = useState<RefactoredDataType>();
   const commonConfig: {} = { delimiter: ",", skipEmptyLines: true };
 
-  const changeHandler = async (event: any) => {
+  const loadFileHandler = async (event: any) => {
     Papa.parse(event.target.files[0], {
       ...commonConfig,
       header: true,
@@ -39,7 +39,7 @@ function App() {
   };
 
   return (
-    <div className="flex flex-col content-center">
+    <div className="flex flex-col content-center min-h-screen">
       <header className="mx-3 my-1 grid grid-cols-2 items-center place-content-between">
         <h2>Datadog csv export viewer</h2>
         {!csvData || csvData.data.length === 0 ? (
@@ -66,10 +66,10 @@ function App() {
           id="file"
           ref={inputFile}
           style={{ display: "none" }}
-          onChange={changeHandler}
+          onChange={loadFileHandler}
         />
       </header>
-      <main className="p-3 min-h-screen grow flex flex-col">
+      <main className="p-3 grow flex flex-col">
         {csvData && csvData.data.length > 0 && (
           <DataTable singleDates={csvData.singleDates} data={csvData.data} />
         )}
