@@ -10,7 +10,7 @@ import { TbFileAnalytics, TbPlayerEject } from "react-icons/tb";
 
 function App() {
   const inputFile = useRef<HTMLInputElement>(null);
-  const [csvData, setCsvData] = useState<RefactoredDataType[]>([]);
+  const [csvData, setCsvData] = useState<RefactoredDataType>();
   const commonConfig: {} = { delimiter: ",", skipEmptyLines: true };
 
   const changeHandler = async (event: any) => {
@@ -35,14 +35,14 @@ function App() {
     inputFile.current.click();
   };
   const ejectFile = () => {
-    setCsvData([]);
+    setCsvData({ singleDates: [], data: [] });
   };
 
   return (
     <div className="flex flex-col content-center">
       <header className="mx-3 my-1 grid grid-cols-2 items-center place-content-between">
         <h2>Datadog csv export viewer</h2>
-        {csvData && csvData.length === 0 ? (
+        {!csvData || csvData.data.length === 0 ? (
           <button
             type="button"
             className="ml-auto inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 hover:ring hover:ring-blue-500"
@@ -70,7 +70,9 @@ function App() {
         />
       </header>
       <main className="p-3">
-        {csvData.length > 0 && <DataTable data={csvData} />}
+        {csvData && csvData.data.length > 0 && (
+          <DataTable singleDates={csvData.singleDates} data={csvData.data} />
+        )}
       </main>
     </div>
   );
