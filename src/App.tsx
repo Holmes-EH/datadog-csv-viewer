@@ -69,7 +69,7 @@ function App() {
           onChange={changeHandler}
         />
       </header>
-      <main className="p-3">
+      <main className="p-3 min-h-screen grow flex flex-col">
         {csvData && csvData.data.length > 0 && (
           <DataTable singleDates={csvData.singleDates} data={csvData.data} />
         )}

@@ -1,0 +1,18 @@
+.spinner-container div:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.spinner-container div:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.spinner-container div:nth-child(4) {
+  animation-delay: 0.3s;
+}
+.spinner-container div:nth-child(5) {
+  animation-delay: 0.4s;
+}
+.spinner-container div:nth-child(6) {
+  animation-delay: 0.5s;
+}
+.spinner-container div:nth-child(7) {
+  animation-delay: 0.6s;
+}
