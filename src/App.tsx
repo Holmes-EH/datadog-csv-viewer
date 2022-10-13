@@ -1,24 +1,77 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState, useRef } from "react";
+import Papa from "papaparse";
+import { RefactoredDataType, ParseResultData } from "./types";
+import refactor from "./utils/refactor";
+
+import DataTable from "./components/dataTable";
+
+import "./App.css";
+import { TbFileAnalytics, TbPlayerEject } from "react-icons/tb";
 
 function App() {
+  const inputFile = useRef<HTMLInputElement>(null);
+  const [csvData, setCsvData] = useState<RefactoredDataType[]>([]);
+  const commonConfig: {} = { delimiter: ",", skipEmptyLines: true };
+
+  const changeHandler = async (event: any) => {
+    Papa.parse(event.target.files[0], {
+      ...commonConfig,
+      header: true,
+      complete: (result: ParseResultData) => {
+        const { data, errors } = result;
+        if (errors && errors.length > 0) {
+          console.error(`Parsing produced some errors`);
+          console.table(errors);
+        }
+        if (data) {
+          setCsvData(refactor(data));
+        }
+      },
+    });
+  };
+
+  const loadFile = () => {
+    if (!inputFile.current) return;
+    inputFile.current.click();
+  };
+  const ejectFile = () => {
+    setCsvData([]);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className="flex flex-col content-center">
+      <header className="mx-3 my-1 grid grid-cols-2 items-center place-content-between">
+        <h2>Datadog csv export viewer</h2>
+        {csvData && csvData.length === 0 ? (
+          <button
+            type="button"
+            className="ml-auto inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 hover:ring hover:ring-blue-500"
+            onClick={loadFile}
+          >
+            <TbFileAnalytics className="text-2xl mr-2" />
+            Load file
+          </button>
+        ) : (
+          <button
+            type="button"
+            className="ml-auto inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 hover:ring-blue-500"
+            onClick={ejectFile}
+          >
+            <TbPlayerEject className="text-2xl mr-2" />
+            Eject file
+          </button>
+        )}
+        <input
+          type="file"
+          id="file"
+          ref={inputFile}
+          style={{ display: "none" }}
+          onChange={changeHandler}
+        />
       </header>
+      <main className="p-3">
+        {csvData.length > 0 && <DataTable data={csvData} />}
+      </main>
     </div>
   );
 }
