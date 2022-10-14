@@ -17,6 +17,7 @@ export type MessageType = {
 export type RefactoredRowType = {
   date: Date;
   message: MessageType;
+  clientIdNumber: string;
 };
 export type RefactoredDataType = {
   singleDates: Array<string>;
