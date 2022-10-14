@@ -105,7 +105,7 @@ const DataTable: FC<RefactoredDataType> = ({
             {getStats("rows") > 0 ? (
               <div className="flex items-center text-sm bg-slate-300 text-slate-600 rounded-full px-3 py-1">
                 <BiPhoneOutgoing className="text-lg mr-3" />
-                Number of calls : {getStats("rows")}
+                Number of requests : {getStats("rows")}
               </div>
             ) : null}
             {getStats("404") > 0 ? (

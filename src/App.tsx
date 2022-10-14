@@ -3,7 +3,7 @@ import Papa from "papaparse";
 import { RefactoredDataType, ParseResultData } from "./types";
 import refactor from "./utils/refactor";
 
-import DataTable from "./components/dataTable";
+import DataTable from "./components/DataTable";
 
 import "./App.css";
 import { TbFileAnalytics, TbPlayerEject } from "react-icons/tb";
@@ -45,7 +45,7 @@ function App() {
         {!csvData || csvData.data.length === 0 ? (
           <button
             type="button"
-            className="ml-auto inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 hover:ring hover:ring-blue-500"
+            className="ml-auto inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-700 hover:text-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 hover:ring hover:ring-blue-500"
             onClick={loadFile}
           >
             <TbFileAnalytics className="text-2xl mr-2" />
@@ -54,7 +54,7 @@ function App() {
         ) : (
           <button
             type="button"
-            className="ml-auto inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 hover:ring-blue-500"
+            className="ml-auto inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-700 hover:text-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 hover:ring-blue-500"
             onClick={ejectFile}
           >
             <TbPlayerEject className="text-2xl mr-2" />
