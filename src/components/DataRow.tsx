@@ -24,7 +24,7 @@ const DataRow: FC<IProps> = ({ filteredData }): JSX.Element => {
               {formatTime(row.date)}
             </td>
             <Message message={row.message} />
-            <td>{row.clientIdNumber}</td>
+            <td className="text-center">{row.clientIdNumber}</td>
           </tr>
         );
       })}
