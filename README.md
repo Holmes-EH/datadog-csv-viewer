@@ -1,4 +1,12 @@
-# Getting Started with Create React App
+# A utility React App to view datadog csv exports data
+
+You'll need a .csv export on your local machine as there are no url fetches happening here.
+Everything happens on YOUR machine.
+I specifically built this to view kontent api fetches and their results over a certain period of time.
+
+Get in touch by [email](mailto:s.holmes.eh@gmail.com) if you have any questions...
+
+## CRA Boilerplate info
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
